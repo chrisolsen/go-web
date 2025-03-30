@@ -2,6 +2,12 @@
 
 ## Setup
 
+```
+# Configure your app's naming 
+./init.sh
+```
+
+
 ```bash
 # Run on local machine
 go get github.com/kyleconroy/sqlc/cmd/sqlc
