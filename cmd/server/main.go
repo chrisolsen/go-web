@@ -4,21 +4,18 @@ import (
 	"fmt"
 	"net/http"
 
-	transportHTTP "github.com/chrisolsen/template/internal/transport/http"
+	"__PKG__/internal/handlers"
 )
 
 type App struct{}
 
 func (a *App) Run() error {
-	fmt.Println("App server running on http://localhost:3000")
-
-	handler := transportHTTP.NewHandler()
-	if err := http.ListenAndServe(":3000", handler); err != nil {
-		fmt.Println("failed to setup handlers")
-		return err
+	handler := handlers.NewAppHandler()
+	err := http.ListenAndServe(":__PORT__", handler); if err == nil {
+		fmt.Println("App server running on http://localhost:__PORT__")
 	}
 
-	return nil
+	return err
 }
 
 func main() {

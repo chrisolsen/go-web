@@ -41,7 +41,7 @@ docker-compose --version
 ## Development
 ```bash
 go mod install
-make dev  # Runs on port 3000
+make dev  # Runs on port __PORT__ 
 ```
 
 ```bash
