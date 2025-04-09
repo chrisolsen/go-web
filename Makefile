@@ -2,30 +2,13 @@
 APP_NAME = __APP__ 
 MIGRATION_PATH = ./db/migration
 
-dev: docker-dev
-	echo Running developement server...
-.PHONY: dev
 
-dev-local:
-	modd
-.PHONY: dev-local
-
-run:
-	go run cmd/server/main.go
-.PHONY: run
+# Build
 
 
-# Docker
-
-
-docker-dev:
-	docker-compose -f "docker-compose.yml" up -d
-.PHONY: docker-dev
-
-
-docker-build:
+build-prod:
 	docker-compose up -f Dockerfile.prod
-.PHONY: docker-build
+.PHONY: build-prod
 
 
 # Testing
