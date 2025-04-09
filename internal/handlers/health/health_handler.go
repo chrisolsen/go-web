@@ -3,7 +3,7 @@ package health
 import (
 	"net/http"
 
-	"__PKG__/internal/services"
+	"__APP__/internal/services"
 )
 
 func NewHandler(healthSvc services.HealthServicer) *http.ServeMux {

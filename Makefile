@@ -1,6 +1,5 @@
 # Common
-PKG_NAME = __PKG__ 
-DB_NAME = __DB__
+APP_NAME = __APP__ 
 MIGRATION_PATH = ./db/migration
 
 dev: docker-dev
@@ -34,25 +33,25 @@ docker-build:
 
 test:
 	go test \
-		$(PKG_NAME)/internal/transport/http \
-		$(PKG_NAME)/cmd/server
+		$(APP_NAME)/internal/transport/http \
+		$(APP_NAME)/cmd/server
 .PHONY: test
 
 
 benchmark:
-	go benchmark $(PKG_NAME)/benchmarks
+	go benchmark $(APP_NAME)/benchmarks
 .PHONY: test
 
 
 # Database
 
 db-create:
-	docker exec -it db createdb --username=postgres --owner=postgres $(DB_NAME)
+	docker exec -it db createdb --username=postgres --owner=postgres $(APP_NAME)
 .PHONY: db-create
 
 
 db-drop:
-	docker exec -it db dropdb --username=postgres --owner=postgres $(DB_NAME)
+	docker exec -it db dropdb --username=postgres --owner=postgres $(APP_NAME)
 .PHONY: db-drop
 
 
@@ -66,7 +65,7 @@ migrate-create:
 
 
 migrate:
-	migrate -path $(MIGRATION_PATH) -database "postgresql://postgres:postgres@localhost:5432/$(DB_NAME)?sslmode=disable" -verbose up
+	migrate -path $(MIGRATION_PATH) -database "postgresql://postgres:postgres@localhost:5432/$(APP_NAME)?sslmode=disable" -verbose up
 .PHONY: migrate
 
 

@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"__PKG__/internal/services"
-	"__PKG__/internal/handlers/health"
+	"__APP__/internal/services"
+	"__APP__/internal/handlers/health"
 )
 
 func NewAppHandler() http.Handler {

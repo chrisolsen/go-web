@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"__PKG__/internal/handlers"
+	"__APP__/internal/handlers"
 )
 
 type App struct{}
