@@ -5,7 +5,7 @@ MIGRATION_PATH = ./db/migration
 
 # Build
 
-build-web:
+build:
 	go build -o ./bin/web ./cmd/server/main.go
 
 
