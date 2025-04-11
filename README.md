@@ -7,7 +7,9 @@
 
 ## Setup
 
-> ** Perform a search and replace of `chrisolsen-goweb` with the name of your app.
+```bash
+./init.sh 
+```
 
 ### Tools (non-devontainer only)
 ```bash
