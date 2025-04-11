@@ -4,32 +4,33 @@ import (
 	"net/http"
 
 	"chrisolsen-goweb/internal/services"
+	"chrisolsen-goweb/internal/transport/http/middleware"
 )
 
-var svc services.HealthServicer
+type healthHandle struct {
+	healthSvc services.HealthServicer
+}
 
 func NewHandler(healthSvc services.HealthServicer) *http.ServeMux {
 	mux := http.NewServeMux()
 
-	svc = healthSvc
+	healthHandle := &healthHandle{
+		healthSvc: healthSvc,
+	}
 
-	mux.HandleFunc("GET /", handle(handleGet))
+	mw := middleware.New(middleware.ContentType("text/html"))
+
+	mux.Handle("GET /", mw.Then(healthHandle.handleGet()))
 
 	return mux
 }
 
-
-func handle(fn func() string ) func (w http.ResponseWriter, r *http.Request) {
+func (h *healthHandle) handleGet() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/html")
 		w.WriteHeader(http.StatusOK)
 
-		result := fn()
+		status := h.healthSvc.Check()
+		result := "Stay healthy! " + status
 		w.Write([]byte(result))
 	}
-}
-
-func handleGet() string {
-	status := svc.Check()
-	return "Stay healthy! " + status
 }

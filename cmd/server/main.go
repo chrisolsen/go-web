@@ -2,12 +2,12 @@ package main
 
 import (
 	"chrisolsen-goweb/internal/services"
-	"chrisolsen-goweb/internal/transport"
+	"chrisolsen-goweb/internal/transport/http"
 	"fmt"
 )
 
 func main() {
-	app := &transport.Http{
+	app := &http.App{
 		AuthSvc:    services.NewAuthService(),
 		HealthSvc:  services.NewHealthService(),
 		EmailSvc:   services.NewEmailService(),
