@@ -3,12 +3,12 @@ package handlers
 import (
 	"net/http"
 
-	"__APP__/internal/services"
-	"__APP__/internal/handlers/health"
+	"chrisolsen-goweb/internal/handlers/health"
+	"chrisolsen-goweb/internal/services"
 )
 
 func NewAppHandler() http.Handler {
-	mux := http.NewServerMux()
+	mux := http.NewServeMux()
 
 	// handlers
 	healthHander := health.NewHandler(services.NewHealthService())

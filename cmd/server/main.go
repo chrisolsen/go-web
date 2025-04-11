@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"net/http"
 
-	"__APP__/internal/handlers"
+	"chrisolsen-goweb/internal/handlers"
 )
 
 type App struct{}
 
 func (a *App) Run() error {
 	handler := handlers.NewAppHandler()
-	err := http.ListenAndServe(":__PORT__", handler); if err == nil {
-		fmt.Println("App server running on http://localhost:__PORT__")
+	err := http.ListenAndServe(":3000", handler); if err == nil {
+		fmt.Println("App server running on http://localhost:3000")
 	}
 
 	return err

@@ -3,7 +3,7 @@ package health
 import (
 	"net/http"
 
-	"__APP__/internal/services"
+	"chrisolsen-goweb/internal/services"
 )
 
 func NewHandler(healthSvc services.HealthServicer) *http.ServeMux {

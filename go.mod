@@ -1,4 +1,4 @@
-module __APP__
+module chrisolsen-goweb
 
 go 1.24
 

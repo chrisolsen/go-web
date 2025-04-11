@@ -8,5 +8,5 @@ function findAndReplace () {
     find . -type f -not -path "./.git/*" -not -path "./init.sh" -exec sed -i $regex {} \;
 }
 
-findAndReplace "__APP__" $app_name
+findAndReplace "chrisolsen-goweb" $app_name
 echo "Complete!"

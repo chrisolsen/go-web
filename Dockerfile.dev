@@ -7,7 +7,9 @@ RUN apt-get update \
 WORKDIR /app
 
 RUN go install go.uber.org/mock/mockgen@latest && \
-    go install github.com/air-verse/air@latest
+    go install github.com/air-verse/air@latest && \
+    go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest && \
+    go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
 RUN git config --global --add safe.directory /app
 

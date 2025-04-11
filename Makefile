@@ -1,9 +1,12 @@
 # Common
-APP_NAME = __APP__ 
+APP_NAME = chrisolsen-goweb 
 MIGRATION_PATH = ./db/migration
 
 
 # Build
+
+build-web:
+	go build -o ./bin/web ./cmd/server/main.go
 
 
 build-prod:
