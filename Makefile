@@ -2,6 +2,8 @@
 APP_NAME = chrisolsen-goweb 
 MIGRATION_PATH = ./db/migration
 
+run:
+	air
 
 # Build
 
