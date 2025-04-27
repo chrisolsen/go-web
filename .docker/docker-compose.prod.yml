@@ -1,15 +1,14 @@
 volumes:
   postgres-data:
   chrisolsen-goweb-mod_cache:
+  caddy_data:
+  caddy_config:
 
 services:
   app:
     build: 
       context: .
-      dockerfile: Dockerfile.dev
-    env_file:
-        # Ensure that the variables in .env match the same variables in devcontainer.json
-        - .env
+      dockerfile: Dockerfile.prod
     volumes:
       - .:/app
       - chrisolsen-goweb-mod_cache:/go/pkg/mod
@@ -23,16 +22,22 @@ services:
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
-
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:3000"
+      - "443:3000"
+    volumes:
+      - $PWD/conf:/etc/caddy
+      - $PWD/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
 
   db:
     image: postgres:latest
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    ports:
-      - '127.0.0.1:443:443'
-      - '127.0.0.1:3000:3000'
-    env_file:
-      # Ensure that the variables in .env match the same variables in devcontainer.json
-      - .env

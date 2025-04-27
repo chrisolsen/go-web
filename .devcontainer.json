@@ -2,7 +2,7 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/go-postgres
 {
 	"name": "Go & PostgreSQL",
-	"dockerComposeFile": "docker-compose.yml",
+	"dockerComposeFile": ".docker/docker-compose.dev.yml",
 	"service": "app",
 	"workspaceFolder": "/app",
 	// Features to add to the dev container. More info: https://containers.dev/features.
