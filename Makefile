@@ -6,7 +6,7 @@ docker-up:
 	docker-compose -f .docker/docker-compose.dev.yml up
 
 run:
-	air
+	docker exec -it docker-app-1 air
 
 # Build
 
