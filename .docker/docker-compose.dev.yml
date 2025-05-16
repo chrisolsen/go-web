@@ -38,7 +38,6 @@ services:
       - NET_ADMIN
     ports:
       - "80:80"
-      - "2019:2019"
     volumes:
       - caddy_data:/data
       - caddy_config:/config
