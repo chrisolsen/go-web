@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"chrisolsen-goweb/internal/services"
-	"chrisolsen-goweb/internal/transport/http/middleware"
 )
 
 type healthHandle struct {
@@ -18,9 +17,7 @@ func NewHandler(healthSvc services.HealthServicer) *http.ServeMux {
 		healthSvc: healthSvc,
 	}
 
-	mw := middleware.New(middleware.ContentType("text/html"))
-
-	mux.Handle("GET /", mw.Then(healthHandle.handleGet()))
+	mux.Handle("GET /", healthHandle.handleGet())
 
 	return mux
 }

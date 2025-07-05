@@ -2,10 +2,10 @@
 APP_NAME = chrisolsen-goweb 
 MIGRATION_PATH = ./db/migration
 
-docker-up:
+containers:
 	docker-compose -f .docker/docker-compose.dev.yml up
 
-run:
+run: 
 	docker exec -it docker-app-1 air
 
 # Build
