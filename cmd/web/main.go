@@ -49,11 +49,7 @@ type App struct {
 func (a *App) NewRouter() http.Handler {
 	mux := http.NewServeMux()
 
-	// handlers
-	healthHander := health.NewHandler(a.services.HealthSvc)
-
-	// handle
-	mux.Handle("GET /health", healthHander)
+	mux.Handle("/health", healthHander)
 
 	return mux
 }

@@ -13,7 +13,6 @@ import (
 
 	"chrisolsen-goweb/internal/handlers/health"
 	"chrisolsen-goweb/internal/services"
-	"chrisolsen-goweb/internal/transport/http/middleware"
 )
 
 type App struct {
@@ -79,13 +78,11 @@ func (a *App) Shutdown() error {
 func (a *App) NewRouter() http.Handler {
 	mux := http.NewServeMux()
 
-	mw := middleware.New(middleware.LoggingMiddleware)
-
 	// handlers
 	healthHander := health.NewHandler(a.HealthSvc)
 
 	// handle
-	mux.Handle("/health", mw.Then(healthHander))
+	mux.Handle("/health", healthHander)
 
 	return mux
 }
