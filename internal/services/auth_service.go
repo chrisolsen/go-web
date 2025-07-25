@@ -1,11 +1,10 @@
 package services
 
-type AuthServicer interface {
-
+type Authenticator interface {
 }
 
-type AuthService struct{}
+type Auth struct{}
 
-func NewAuthService() AuthServicer {
-	return &AuthService{}
+func NewAuthenticator() Authenticator {
+	return &Auth{}
 }

@@ -1,10 +1,10 @@
 package services
 
-type EmailServicer interface {
+type Emailer interface {
 }
 
-type EmailService struct{}
+type Email struct{}
 
-func NewEmailService() EmailServicer {
-	return &EmailService{}
+func NewEmailer() Emailer {
+	return &Email{}
 }

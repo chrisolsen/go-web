@@ -1,6 +1,4 @@
-package http
-
-// https://dev.to/antonkuklin/golang-graceful-shutdown-3n6d
+package apps
 
 import (
 	"context"
@@ -10,23 +8,14 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-
-	"chrisolsen-goweb/internal/handlers/health"
-	"chrisolsen-goweb/internal/services"
 )
 
-type App struct {
-	AuthSvc    services.AuthServicer
-	HealthSvc  services.HealthServicer
-	EmailSvc   services.EmailServicer
-	PaymentSvc services.PaymentServicer
-	LoggingSvc services.LoggingServicer
+type Base struct {
 }
 
-func (app *App) Run() {
-	router := app.NewRouter()
+func (app *Base) Run(port string, router http.Handler) {
 	server := &http.Server{
-		Addr:         ":3000",
+		Addr:         port,
 		Handler:      router,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
@@ -44,7 +33,7 @@ func (app *App) Run() {
 			log.Fatalf("Failed to start server: %s\n", err)
 		}
 	}()
-	log.Println("Server started on :3000")
+	log.Println("Server started on " + port)
 
 	// Wait for shutdown signal
 	<-done
@@ -67,22 +56,10 @@ func (app *App) Run() {
 }
 
 // Shutdown handles the shutdown logic for the application
-func (a *App) Shutdown() error {
+func (a *Base) Shutdown() error {
 	// TODO: implement shutdown logic
 	// This could include closing database connections, stopping background jobs, etc.
 	// For now, we'll just log that the shutdown is happening
 	log.Println("Shutting down services...")
 	return nil
-}
-
-func (a *App) NewRouter() http.Handler {
-	mux := http.NewServeMux()
-
-	// handlers
-	healthHander := health.NewHandler(a.HealthSvc)
-
-	// handle
-	mux.Handle("/health", healthHander)
-
-	return mux
 }

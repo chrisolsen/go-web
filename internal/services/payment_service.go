@@ -1,10 +1,10 @@
 package services
 
-type PaymentServicer interface {
-
+type Paymenter interface {
 }
 
-type PaymentService struct{}
-func NewPaymentService() PaymentServicer {
-	return &PaymentService{}
+type Payment struct{}
+
+func NewPaymenter() Paymenter {
+	return &Payment{}
 }

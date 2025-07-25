@@ -2,19 +2,19 @@
 APP_NAME = chrisolsen-goweb 
 MIGRATION_PATH = ./db/migration
 
-containers:
+dev-containers-up:
 	docker-compose -f .docker/docker-compose.dev.yml up
 
-run: 
+dev: 
 	docker exec -it docker-app-1 air
 
 # Build
 
-build:
-	go build -o ./bin/web ./cmd/server/main.go
+public-build:
+	go build -o ./bin/app ./apps/public/main.go
 
 
-build-prod:
+public-build-prod:
 	docker-compose up -f .docker/Dockerfile.prod
 
 
@@ -23,8 +23,8 @@ build-prod:
 
 test:
 	go test \
-		$(APP_NAME)/internal/transport/http \
-		$(APP_NAME)/cmd/server
+		$(APP_NAME)/apps/admin \
+		$(APP_NAME)/apps/public
 
 
 benchmark:
@@ -34,11 +34,7 @@ benchmark:
 # Database
 
 db-create:
-	docker exec -it db createdb --username=postgres --owner=postgres $(APP_NAME)
-
-
-db-drop:
-	docker exec -it db dropdb --username=postgres --owner=postgres $(APP_NAME)
+	sqlite3 database.db
 
 
 # Migrations
@@ -50,7 +46,7 @@ migrate-create:
 
 
 migrate:
-	migrate -path $(MIGRATION_PATH) -database "postgresql://postgres:postgres@localhost:5432/$(APP_NAME)?sslmode=disable" -verbose up
+	migrate -path $(MIGRATION_PATH) -database "./database.db" -verbose up
 
 
 # Sqlc - Generate the Go files for the migrations

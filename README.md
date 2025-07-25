@@ -11,13 +11,13 @@
 ./init.sh 
 ```
 
-### Tools (non-devontainer only)
+### Tools (non-devcontainer only)
 ```bash
 # Run on local machine
 go install go.uber.org/mock/mockgen@latest
 go install github.com/air-verse/air@latest
 go install github.com/kyleconroy/sqlc/cmd/sqlc@latest
-go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+go install -tags 'sqlite3' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 ```
 
 ## Development
