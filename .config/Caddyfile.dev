@@ -1,3 +1,8 @@
-:80
+:3000 {
+    reverse_proxy app:3000
+}
 
-reverse_proxy app:3000
+:3030 {
+    reverse_proxy app:3030  
+}
+

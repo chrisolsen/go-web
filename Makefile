@@ -5,16 +5,20 @@ MIGRATION_PATH = ./db/migration
 dev-containers-up:
 	docker-compose -f .docker/docker-compose.dev.yml up
 
-dev: 
-	docker exec -it docker-app-1 air
+public: 
+	docker exec docker-app-1 air -c .air.public.toml
+
+admin: 
+	docker exec docker-app-1 air -c .air.admin.toml
 
 # Build
 
-public-build:
-	go build -o ./bin/app ./apps/public/main.go
+build-dev:
+	go build -o ./bin/public ./apps/public/main.go
+	go build -o ./bin/admin ./apps/admin/main.go
 
 
-public-build-prod:
+build-prod:
 	docker-compose up -f .docker/Dockerfile.prod
 
 

@@ -21,6 +21,7 @@ services:
       - chrisolsen-goweb-mod_cache:/go/pkg/mod
       
     # Overrides default command so things don't shut down after the process ends.
+    # This is intentional for the dev environment, but requires that the CMD is manually run.
     command: sleep infinity
 
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
@@ -37,8 +38,9 @@ services:
     cap_add:
       - NET_ADMIN
     ports:
-      - "3000:80"
-      - "3001:8080"
+      - "3000:3000"  # public
+      - "3030:3030"  # admin
+      - "2019:2019"  # caddy
     volumes:
       - caddy_data:/data
       - caddy_config:/config

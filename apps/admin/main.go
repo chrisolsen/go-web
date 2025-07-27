@@ -26,5 +26,9 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	app.Run(":8080", mux)
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("This is the admin"))
+	})
+
+	app.Run(":3030", mux)
 }
