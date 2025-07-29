@@ -5,7 +5,9 @@ package main
 import (
 	"chrisolsen-goweb/apps"
 	"chrisolsen-goweb/internal/services"
+	"log"
 	"net/http"
+	"text/template"
 )
 
 type App struct {
@@ -37,7 +39,18 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello"))
+		ts, err := template.ParseFiles("apps/public/layouts/base.html")
+		if err != nil {
+			http.Error(w, "Internal error", http.StatusInternalServerError)
+			log.Println("Error parsing template:", err)
+			return
+		}
+
+		err = ts.ExecuteTemplate(w, "base", nil)
+		if err != nil {
+			http.Error(w, "Internal error", http.StatusInternalServerError)
+			log.Println("Error executing template:", err)
+		}
 	})
 
 	app.Run(":3000", mux)
