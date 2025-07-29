@@ -2,6 +2,12 @@
 APP_NAME = chrisolsen-goweb 
 MIGRATION_PATH = ./db/migration
 
+# Init
+init:
+	./scripts/init.sh
+
+# Dev
+
 dev-containers-up:
 	docker-compose -f .docker/docker-compose.dev.yml up
 

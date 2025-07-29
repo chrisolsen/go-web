@@ -3,14 +3,6 @@ package main
 // https://dev.to/antonkuklin/golang-graceful-shutdown-3n6d
 
 import (
-	// "context"
-	// "log"
-	// "net/http"
-	// "os"
-	// "os/signal"
-	// "syscall"
-	// "time"
-
 	"chrisolsen-goweb/apps"
 	"chrisolsen-goweb/internal/services"
 	"net/http"
