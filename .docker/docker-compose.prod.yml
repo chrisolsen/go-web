@@ -4,6 +4,10 @@ volumes:
   caddy_data:
   caddy_config:
 
+networks:
+  caddy_net:
+  app_net:
+
 services:
   public:
     build: 
@@ -13,6 +17,10 @@ services:
       - .:/app
       - chrisolsen-goweb-mod_cache:/go/pkg/mod
 
+    networks:
+      - caddy_net
+      - app_net
+
   admin:
     build: 
       context: .
@@ -20,6 +28,10 @@ services:
     volumes:
       - .:/app
       - chrisolsen-goweb-mod_cache:/go/pkg/mod
+
+    networks:
+      - caddy_net
+      - app_net
 
   caddy:
     image: caddy:latest
@@ -29,6 +41,7 @@ services:
     ports:
       - "80:3000"
       - "443:3000"
+      - "443:3000/udp"
       - "8080:3030"
     volumes:
       - $PWD/conf:/etc/caddy
@@ -40,4 +53,4 @@ services:
     image: postgres:latest
     restart: unless-stopped
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data

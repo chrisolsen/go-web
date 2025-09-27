@@ -38,6 +38,7 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
+
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		ts, err := template.ParseFiles("apps/public/layouts/base.html")
 		if err != nil {
