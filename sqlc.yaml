@@ -4,7 +4,7 @@ packages:
     path: "internal/db"
     queries: "./db/query/"
     schema: "./db/migration/"
-    engine: "sqlite"
+    engine: "postgresql"
     emit_prepared_queries: true
     emit_interface: false
     emit_exact_table_names: false

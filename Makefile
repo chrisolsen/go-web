@@ -8,7 +8,7 @@ init:
 
 # Dev
 
-dev-containers-up:
+dev:
 	docker-compose -f .docker/docker-compose.dev.yml up
 
 public: 

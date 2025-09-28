@@ -1,9 +1,8 @@
 # TODOS
 
 - [ ] Determine why I only have a Caddyfile.dev (for dev)
-- Create a landing page and a route
-- Create a login page and a forgot your password
-- Get Sqlite setup
+- [x] Create a landing page and a route
+- [ ] Create a login page and a forgot your password
 - Create auth service with required migrations
   - Create session table with list of tokens that link to the user id
     - tokens will have an expiry timestamp

@@ -1,30 +1,38 @@
 # README
 
 ## Prerequisits
+
 - Docker
 - DockerCompose
 
-
-## Setup
+## Initialize new project 
 
 ```bash
+# updates the go module name 
 ./init.sh 
-```
-
-### Tools (non-devcontainer only)
-```bash
-# Run on local machine
-go install go.uber.org/mock/mockgen@latest
-go install github.com/air-verse/air@latest
-go install github.com/kyleconroy/sqlc/cmd/sqlc@latest
-go install -tags 'sqlite3' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 ```
 
 ## Development
 
+### Tools 
+
+```bash
+# Dev only required libs 
+go install go.uber.org/mock/mockgen@latest
+go install github.com/air-verse/air@latest
+go install github.com/kyleconroy/sqlc/cmd/sqlc@latest
+go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+# ensure all go.mod libs are installed
+go get ./...
+```
+
 ### Start dev server
 ```bash
-go mod install  # non-devcontainer only
+
+# shell 1
+make dev
+# shell 2
 air
 ```
 
