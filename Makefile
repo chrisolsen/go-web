@@ -8,13 +8,13 @@ init:
 
 # Dev
 
-dev:
+dev-up:
 	docker-compose -f .docker/docker-compose.dev.yml up
 
-public: 
+dev-public: 
 	docker exec docker-app-1 air -c .air.public.toml
 
-admin: 
+dev-admin: 
 	docker exec docker-app-1 air -c .air.admin.toml
 
 # Build

@@ -21,7 +21,7 @@
 go install go.uber.org/mock/mockgen@latest
 go install github.com/air-verse/air@latest
 go install github.com/kyleconroy/sqlc/cmd/sqlc@latest
-go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+go install -tags 'postgresql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
 # ensure all go.mod libs are installed
 go get ./...
@@ -31,9 +31,9 @@ go get ./...
 ```bash
 
 # shell 1
-make dev
+make dev-up
 # shell 2
-air
+make dev-public # or `make dev-admin`
 ```
 
 ### Common commands
