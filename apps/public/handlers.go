@@ -4,6 +4,15 @@ import (
 	"net/http"
 )
 
+type rootData struct {
+	Foo string
+}
+
 func (app *App) rootHandler(w http.ResponseWriter, r *http.Request) {
-	app.render(w, 200, "landing.page.html")
+
+	data := rootData{}
+	data.Foo = "FooBar"
+
+	// FIXME: Views are being keyed by name, which could result in a conflict
+	app.render(w, http.StatusOK, "landing.page.html", data)
 }
