@@ -1,10 +1,4 @@
-:3000 {
+:5173 {
     encode gzip
     reverse_proxy app:3000
 }
-
-:3030 {
-    encode gzip
-    reverse_proxy app:3030  
-}
-

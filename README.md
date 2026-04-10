@@ -14,6 +14,8 @@
 
 ## Development
 
+A docker development environment exists that contains the various libs (see below) required on the development side.
+
 ### Tools 
 
 ```bash
@@ -33,7 +35,7 @@ go get ./...
 # shell 1
 make dev-up
 # shell 2
-make dev-public # or `make dev-admin`
+make dev
 ```
 
 ### Common commands

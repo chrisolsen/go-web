@@ -1,5 +1,5 @@
 # Common
-APP_NAME = chrisolsen-goweb 
+APP_NAME = chrisolsen-goweb
 MIGRATION_PATH = ./db/migration
 
 # Init
@@ -8,33 +8,27 @@ init:
 
 # Dev
 
-dev-up:
-	docker-compose -f .docker/docker-compose.dev.yml up
+dev-compose:
+	podman compose -f .docker/docker-compose.dev.yml up
 
-dev-public: 
-	docker exec docker-app-1 air -c .air.public.toml
-
-dev-admin: 
-	docker exec docker-app-1 air -c .air.admin.toml
+dev:
+	podman exec docker_app_1 air -c .air.toml
 
 # Build
 
-build-dev:
-	go build -o ./bin/public ./apps/public/main.go
-	go build -o ./bin/admin ./apps/admin/main.go
+build:
+	go build -o ./bin/public ./app/main.go
 
 
 build-prod:
-	docker-compose up -f .docker/Dockerfile.prod
+	podman compose up -f .docker/Dockerfile.prod
 
 
 # Testing
 
 
 test:
-	go test \
-		$(APP_NAME)/apps/admin \
-		$(APP_NAME)/apps/public
+	go test $(APP_NAME)
 
 
 benchmark:

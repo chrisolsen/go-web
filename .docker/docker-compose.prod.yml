@@ -9,22 +9,10 @@ networks:
   app_net:
 
 services:
-  public:
+  app:
     build: 
       context: .
-      dockerfile: Dockerfile.public.prod
-    volumes:
-      - .:/app
-      - chrisolsen-goweb-mod_cache:/go/pkg/mod
-
-    networks:
-      - caddy_net
-      - app_net
-
-  admin:
-    build: 
-      context: .
-      dockerfile: Dockerfile.admin.prod
+      dockerfile: Dockerfile.prod
     volumes:
       - .:/app
       - chrisolsen-goweb-mod_cache:/go/pkg/mod
@@ -42,7 +30,6 @@ services:
       - "80:3000"
       - "443:3000"
       - "443:3000/udp"
-      - "8080:3030"
     volumes:
       - $PWD/conf:/etc/caddy
       - $PWD/site:/srv

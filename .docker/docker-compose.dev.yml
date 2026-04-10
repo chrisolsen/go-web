@@ -38,8 +38,7 @@ services:
     cap_add:
       - NET_ADMIN
     ports:
-      - "3000:3000"  # public
-      - "3030:3030"  # admin
+      - "3000:3000"  # app
       - "5432:5432"  # postgres
       - "2019:2019"  # caddy
     volumes:

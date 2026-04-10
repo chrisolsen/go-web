@@ -3,7 +3,6 @@ package main
 // https://dev.to/antonkuklin/golang-graceful-shutdown-3n6d
 
 import (
-	"chrisolsen-goweb/apps"
 	"chrisolsen-goweb/internal/services"
 	"chrisolsen-goweb/internal/templates"
 	"html/template"
@@ -14,7 +13,7 @@ import (
 )
 
 type App struct {
-	apps.Base
+	Base
 	templateCache map[string]*template.Template
 	services      Services
 	state         State
@@ -32,7 +31,7 @@ type State struct {
 }
 
 func main() {
-	templateCache, err := templates.NewTemplateCache("./apps/public/views")
+	templateCache, err := templates.NewTemplateCache("./app/views")
 	if err != nil {
 		log.Println("Failed to load template cache")
 		return
