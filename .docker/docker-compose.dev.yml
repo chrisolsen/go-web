@@ -38,8 +38,8 @@ services:
     cap_add:
       - NET_ADMIN
     ports:
-      - "3000:3000"  # app
-      - "5432:5432"  # postgres
+      - "5173:5173"  # app
+      - "5432:5432"  # postgres: this port is exposed in dev to allow external DB apps to access it
       - "2019:2019"  # caddy
     volumes:
       - caddy_data:/data
@@ -52,9 +52,13 @@ services:
     image: postgres:latest
     restart: unless-stopped
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql
+    ports:
+      - "54320:5432"
     env_file:
       # Ensure that the variables in .env match the same variables in devcontainer.json
       - ../.env
     networks:
       - app_net
+    environment:
+      POSTGRES_PASSWORD: postgres
