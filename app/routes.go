@@ -22,6 +22,7 @@ func (app App) NewRouter() http.Handler {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", app.rootHandler)
+	mux.HandleFunc("/partial", app.partialHandler)
 
 	return mw.Then(mux)
 }
