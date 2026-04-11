@@ -15,6 +15,7 @@ import (
 type App struct {
 	Base
 	templateCache map[string]*template.Template
+	partialCache  map[string]*template.Template
 	services      Services
 	state         State
 }
@@ -32,13 +33,20 @@ type State struct {
 
 func main() {
 	templateCache, err := templates.NewTemplateCache("./app/views")
-	if err != nil {
+	if err != nil || len(templateCache) == 0 {
 		log.Println("Failed to load template cache")
+		return
+	}
+
+	partialCache, err := templates.NewPartialCache("./app/views")
+	if err != nil || len(partialCache) == 0 {
+		log.Println("Failed to load partial cache")
 		return
 	}
 
 	app := &App{
 		templateCache: templateCache,
+		partialCache:  partialCache,
 		services: Services{
 			Auth:    services.NewAuthenticator(),
 			Email:   services.NewEmailer(),

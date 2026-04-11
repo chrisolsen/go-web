@@ -16,3 +16,7 @@ func (app *App) rootHandler(w http.ResponseWriter, r *http.Request) {
 	// FIXME: Views are being keyed by name, which could result in a conflict
 	app.render(w, http.StatusOK, "landing.page.html", data)
 }
+
+func (app *App) partialHandler(w http.ResponseWriter, r *http.Request) {
+	app.partial(w, http.StatusOK, "test.partial.html", nil)
+}

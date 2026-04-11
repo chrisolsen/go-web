@@ -19,7 +19,7 @@ var functions = template.FuncMap{
 	"humanDate": humanDate,
 }
 
-// Scans path for all tmpl files. Each template file
+// Assembles template files
 func NewTemplateCache(path string) (map[string]*template.Template, error) {
 	// get a list of all the tmpl files that don't start with underscore
 	pagePaths, err := filepath.Glob(path + "/**/*.page.html")
@@ -73,6 +73,30 @@ func NewTemplateCache(path string) (map[string]*template.Template, error) {
 
 			cache[name] = ts
 		}
+	}
+
+	return cache, nil
+}
+
+func NewPartialCache(path string) (map[string]*template.Template, error) {
+	partialPaths, err := getMatchingFiles(path, ".partial.html")
+	if err != nil {
+		log.Println("Error on read of partial paths")
+		return nil, err
+	}
+
+	cache := make(map[string]*template.Template)
+	for _, partialPath := range partialPaths {
+		name := filepath.Base(partialPath)
+
+		// init the template
+		ts, err := template.New(name).Funcs(functions).ParseFiles(partialPath)
+		if err != nil {
+			log.Println("Error adding partial")
+			return nil, err
+		}
+
+		cache[name] = ts
 	}
 
 	return cache, nil
