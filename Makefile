@@ -8,6 +8,12 @@ init:
 
 # Dev
 
+dev-setup:
+	go install golang.org/x/tools/gopls@latest
+	go install github.com/nametake/golangci-lint-langserver@latest
+	go install github.com/go-delve/delve/cmd/dlv@latest
+	go get ./...
+
 dev-compose:
 	podman compose -f .docker/docker-compose.dev.yml up
 

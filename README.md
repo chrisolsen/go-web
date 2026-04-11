@@ -14,9 +14,19 @@
 
 ## Development
 
-A docker development environment exists that contains the various libs (see below) required on the development side.
+Podman is required
 
-### Tools 
+### Go dev tools
+
+```bash
+go install golang.org/x/tools/gopls@latest
+go install github.com/nametake/golangci-lint-langserver@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
+```
+
+### Tools
+
+These are only required if you are not using the Podman containers
 
 ```bash
 # Dev only required libs 
@@ -24,7 +34,11 @@ go install go.uber.org/mock/mockgen@latest
 go install github.com/air-verse/air@latest
 go install github.com/kyleconroy/sqlc/cmd/sqlc@latest
 go install -tags 'postgresql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+```
 
+### Libs
+
+```bash
 # ensure all go.mod libs are installed
 go get ./...
 ```
@@ -33,7 +47,7 @@ go get ./...
 ```bash
 
 # shell 1
-make dev-up
+make dev-compose
 # shell 2
 make dev
 ```
