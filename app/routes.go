@@ -18,10 +18,16 @@ func (app App) NewRouter() http.Handler {
 		nosurf.NewPure,
 	)
 
-	// routes
-
 	mux := http.NewServeMux()
+
+	// static files
+	fs := http.FileServer(http.Dir("./app/static"))
+	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
+
+	// routes
 	mux.HandleFunc("/", app.rootHandler)
+	mux.HandleFunc("/signup", app.signupHandler)
+	mux.HandleFunc("/login", app.loginHandler)
 	mux.HandleFunc("/partial", app.partialHandler)
 
 	return mw.Then(mux)

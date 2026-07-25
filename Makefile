@@ -17,13 +17,16 @@ dev-setup:
 dev-compose:
 	podman compose -f .docker/docker-compose.dev.yml up
 
-dev:
+dev-css:
+	tailwindcss -i app/styles/input.css -o app/static/output.css --watch
+
+dev-serve:
 	podman exec docker_app_1 air -c .air.toml
 
 # Build
 
 build:
-	go build -o ./bin/public ./app/main.go
+	go build -o ./bin/public/app ./app
 
 
 build-prod:

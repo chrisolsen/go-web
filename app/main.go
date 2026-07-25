@@ -17,7 +17,7 @@ type App struct {
 	templateCache map[string]*template.Template
 	partialCache  map[string]*template.Template
 	services      Services
-	state         State
+	env           Env
 }
 
 type Services struct {
@@ -27,18 +27,18 @@ type Services struct {
 	Log     services.Logger
 }
 
-type State struct {
-	foo string
+type Env struct {
+	SomeApiToken string
 }
 
 func main() {
-	templateCache, err := templates.NewTemplateCache("./app/views")
+	templateCache, err := templates.NewTemplateCache("./app/views", nil)
 	if err != nil || len(templateCache) == 0 {
 		log.Println("Failed to load template cache")
 		return
 	}
 
-	partialCache, err := templates.NewPartialCache("./app/views")
+	partialCache, err := templates.NewPartialCache("./app/views", nil)
 	if err != nil || len(partialCache) == 0 {
 		log.Println("Failed to load partial cache")
 		return

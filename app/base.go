@@ -10,8 +10,7 @@ import (
 	"time"
 )
 
-type Base struct {
-}
+type Base struct{}
 
 func (app *Base) Run(port string, router http.Handler) {
 	server := &http.Server{

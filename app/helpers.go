@@ -6,6 +6,14 @@ import (
 	"net/http"
 )
 
+func (app *App) redirect(w http.ResponseWriter, r *http.Request, url string, code int) {
+	http.Redirect(w, r, url, code)
+}
+
+func (app *App) renderOk(w http.ResponseWriter, page string, data any) {
+	app.render(w, http.StatusOK, page, data)
+}
+
 func (app *App) render(w http.ResponseWriter, status int, page string, data any) {
 	ts, ok := app.templateCache[page]
 	if !ok {

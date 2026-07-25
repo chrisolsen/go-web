@@ -1,6 +1,7 @@
 package templates
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"os"
@@ -20,9 +21,9 @@ var functions = template.FuncMap{
 }
 
 // Assembles template files
-func NewTemplateCache(path string) (map[string]*template.Template, error) {
+func NewTemplateCache(path string, funcMap template.FuncMap) (map[string]*template.Template, error) {
 	// get a list of all the tmpl files that don't start with underscore
-	pagePaths, err := filepath.Glob(path + "/**/*.page.html")
+	pagePaths, err := getMatchingFiles(path, ".page.html")
 	cache := make(map[string]*template.Template)
 
 	if err != nil {
@@ -33,22 +34,31 @@ func NewTemplateCache(path string) (map[string]*template.Template, error) {
 	for _, pagePath := range pagePaths {
 		parts := strings.Split(filepath.Dir(pagePath), "/")
 
-		// traverse up the dir chain to find nearest _lahout file
+		// traverse up the dir chain to find nearest _layout file
 		for i := len(parts); i >= 1; i-- {
 			parts = parts[:i]
-			layoutPath := strings.Join(parts, "/") + "/_layout.tmpl.html"
 
+			// is there a _layout file in the page's path
+			layoutPath := strings.Join(parts, "/") + "/_layout.tmpl.html"
 			_, err := os.Stat(layoutPath)
 			if os.IsNotExist(err) {
 				continue
 			}
 
-			name := filepath.Base(pagePath)
+			// name of the template. File's path excluding, the root `path` passed into this function
+			name := strings.Replace(
+				pagePath,
+				strings.Replace(path+"/", "./", "", 1),
+				"",
+				1,
+			)
+			fmt.Println("Initializing template: ", layoutPath, name)
 
 			// init the template
-			ts, err := template.New(name).Funcs(functions).ParseFiles(layoutPath)
+			ts, err := template.New(name).Funcs(funcMap).ParseFiles(layoutPath)
 			if err != nil {
-				log.Println("Error adding layout")
+				log.Println("Error adding layout: ", layoutPath)
+				log.Println(err.Error())
 				return nil, err
 			}
 
@@ -72,13 +82,16 @@ func NewTemplateCache(path string) (map[string]*template.Template, error) {
 			}
 
 			cache[name] = ts
+
+			// prevent traversing further up
+			break
 		}
 	}
 
 	return cache, nil
 }
 
-func NewPartialCache(path string) (map[string]*template.Template, error) {
+func NewPartialCache(path string, funcMap template.FuncMap) (map[string]*template.Template, error) {
 	partialPaths, err := getMatchingFiles(path, ".partial.html")
 	if err != nil {
 		log.Println("Error on read of partial paths")
@@ -90,7 +103,7 @@ func NewPartialCache(path string) (map[string]*template.Template, error) {
 		name := filepath.Base(partialPath)
 
 		// init the template
-		ts, err := template.New(name).Funcs(functions).ParseFiles(partialPath)
+		ts, err := template.New(name).Funcs(funcMap).ParseFiles(partialPath)
 		if err != nil {
 			log.Println("Error adding partial")
 			return nil, err

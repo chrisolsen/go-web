@@ -1,6 +1,5 @@
 # TODOS
 
-- [ ] Determine why I only have a Caddyfile.dev (for dev)
 - [x] Create a landing page and a route
 - [ ] Create a login page and a forgot your password
 - Create auth service with required migrations
@@ -14,13 +13,13 @@
   - Create a function to check if the user is authorized or not
 
 ## From Book
- - [ ] TemplateCache pg165
- - [ ] Router (Alice) pg192
+ - [x] TemplateCache pg165
+ - [x] Router (Alice) pg192
  - [ ] Validation pg217
  - [ ] FormDecoder pg224
  - [ ] Cron-like lib github.com/robfig/cron
-     - remove reliance on Caddy
-     - user own pem files pg 253
+     x remove reliance on Caddy
+     x user own pem files pg 253
  - [ ] Panic Recovery
     - panics won't bring down the server, but they may result in a false 200 OK and incomplete render
 
