@@ -24,6 +24,10 @@ go install github.com/nametake/golangci-lint-langserver@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 ```
 
+### Tailwind
+Either install tailwind as a global npm lib via `npm i -g tailwindcss` or download the binary from
+the [releases page](https://github.com/tailwindlabs/tailwindcss/releases) and save it in the root folder
+
 ### Tools
 
 These are only required if you are not using the Podman containers
